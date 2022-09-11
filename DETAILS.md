@@ -6,7 +6,7 @@ Get  user age based on timestamp value of date of birth.
 
 Pass timestamped value  of dob as a query parmeter to the howold endpoint 
 
-*Example:*
+**Example:**
 GET Request 
 https://{baseurl}/howold/?dob=timestampedvalueofdob
 
