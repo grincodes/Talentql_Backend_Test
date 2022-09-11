@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Build and deploy a very simple API that does the following",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest",
