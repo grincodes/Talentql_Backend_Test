@@ -2,7 +2,7 @@
   "name": "talentql_backend_test",
   "version": "1.0.0",
   "description": "Build and deploy a very simple API that does the following",
-  "main": "index.js",
+  "main": "bin/www",
   "engines": {
     "node": ">=8.0.0"
   },
@@ -10,7 +10,9 @@
     "build": "tsc",
     "test": "jest",
     "start:dev": "nodemon",
-    "test:dev": "jest --watchAll"
+    "test:dev": "jest --watchAll",
+    "start": "node dist/bin/www"
+    
   },
   "repository": {
     "type": "git",
