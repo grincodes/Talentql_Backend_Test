@@ -21,14 +21,25 @@ export class Dob {
 
     // return parseInt(age.toFixed());
 
-    var today = new Date();
-    var birthDate = new Date(this.dob);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
+    var millisecondsBetweenDOBAnd1970 = Date.parse(this.dob);
+    var millisecondsBetweenNowAnd1970 = Date.now();
+    var ageInMilliseconds =
+      millisecondsBetweenNowAnd1970 - millisecondsBetweenDOBAnd1970;
+    //--We will leverage Date.parse and now method to calculate age in milliseconds refer here https://www.w3schools.com/jsref/jsref_parse.asp
+
+    var milliseconds = ageInMilliseconds;
+    var second = 1000;
+    var minute = second * 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+    var month = day * 30;
+    /*using 30 as base as months can have 28, 29, 30 or 31 days depending a month in a year it itself is a different piece of comuptation*/
+    var year = day * 365;
+
+    //let the age conversion begin
+    var years = Math.round(milliseconds / year);
+
+    return years;
   }
 
   public static create(dob: string): Result<Dob> {
