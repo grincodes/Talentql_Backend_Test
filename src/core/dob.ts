@@ -21,7 +21,7 @@ export class Dob {
 
     // return parseInt(age.toFixed());
 
-    var millisecondsBetweenDOBAnd1970 = Date.parse(this.dob);
+    var millisecondsBetweenDOBAnd1970 = new Date(this.dob).getTime();
     var millisecondsBetweenNowAnd1970 = Date.now();
     var ageInMilliseconds =
       millisecondsBetweenNowAnd1970 - millisecondsBetweenDOBAnd1970;
