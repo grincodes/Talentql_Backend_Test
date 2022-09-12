@@ -15,11 +15,20 @@ export class Dob {
   }
 
   public getCurrentAge(): number {
-    const age = Math.abs(
-      DateTime.fromFormat(this.dob, "dd-MM-yyyy").diffNow("years").years
-    );
+    // const age = Math.abs(
+    //   DateTime.fromFormat(this.dob, "dd-MM-yyyy").diffNow("years").years
+    // );
 
-    return parseInt(age.toFixed());
+    // return parseInt(age.toFixed());
+
+    var today = new Date();
+    var birthDate = new Date(this.dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
 
   public static create(dob: string): Result<Dob> {
