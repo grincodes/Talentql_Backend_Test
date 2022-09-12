@@ -8,7 +8,7 @@ Pass timestamped value  of dob as a query parmeter to the howold endpoint
 
 **Example:**
 GET Request 
-https://{baseurl}/howold/?dob=timestampedvalueofdob
+https://agile-wildwood-01406.herokuapp.com//howold/?dob=timestampedvalueofdob
 
 # Constraints
 The endpoint has a rate limiter such that not more than 3 calls are allowed within one second
