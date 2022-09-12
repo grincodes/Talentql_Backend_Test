@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Result } from "../utils/Result";
 
 export interface TimestampProps {
@@ -16,9 +15,8 @@ export class Timestamp {
   }
 
   public static isValidTimeStamp(timestamp: number): boolean {
-    //  const valid = (new Date(timestamp)).getTime() > 0;
-    const valid = moment(timestamp).isValid();
-    return valid;
+    const valid = new Date(timestamp).getTime() > 0;
+    return true;
   }
 
   public static create(props: TimestampProps): Result<Timestamp> {

@@ -1,6 +1,5 @@
 import { timeStamp } from "console";
 import { Dob } from "../core/dob";
-import { Timestamp } from "../core/timestamp";
 import { BaseController } from "./baseController";
 
 export class CalculateAgeController extends BaseController {
@@ -8,15 +7,15 @@ export class CalculateAgeController extends BaseController {
     super();
   }
   async executeImpl(): Promise<any> {
-    const timestamp = parseInt(this.req.query.dob as string);
+    const timestamp = this.req.query.dob as string;
 
-    let dobOrError = Timestamp.create({ timestamp });
+    let dobOrError = Dob.create(timestamp);
 
     if (dobOrError.isFailure) {
       return this.clientError(dobOrError.error as string);
     }
 
-    let age = Dob.getCurrentAge(dobOrError.getValue());
+    let age = dobOrError.getValue().getCurrentAge();
     return this.ok(this.res, age);
   }
 }
