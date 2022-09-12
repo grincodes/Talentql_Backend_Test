@@ -10,20 +10,21 @@ export class Dob {
   }
 
   public static isValidTimeStamp(dob: string): boolean {
-    return DateTime.fromFormat(dob, "dd-MM-yyyy").isValid;
+    // return DateTime.fromFormat(dob, "dd-MM-yyyy").isValid;
+    return new Date(dob).getTime() > 0;
   }
 
   public getCurrentAge(): number {
     const age = Math.abs(
       DateTime.fromFormat(this.dob, "dd-MM-yyyy").diffNow("years").years
     );
+
     return parseInt(age.toFixed());
   }
 
   public static create(dob: string): Result<Dob> {
     if (!this.isValidTimeStamp(dob)) {
-      return Result.ok<Dob>(new Dob("29-4-1998"));
-      //   return Result.fail<Dob>("Invalid TimeStamp");
+      return Result.fail<Dob>("Invalid TimeStamp");
     } else {
       return Result.ok<Dob>(new Dob(dob));
     }
