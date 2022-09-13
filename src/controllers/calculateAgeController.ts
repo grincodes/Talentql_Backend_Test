@@ -8,6 +8,8 @@ export class CalculateAgeController extends BaseController {
   }
   async executeImpl(): Promise<any> {
     const timestamp = parseInt(this.req.query.dob as string);
+    console.log(this.req);
+
     console.log("dob params", timestamp);
 
     let dobOrError = Timestamp.create({ timestamp });
