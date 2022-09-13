@@ -11,7 +11,7 @@ GET Request
 https://agile-wildwood-01406.herokuapp.com//howold/?dob=timestampedvalueofdob
 
 # Constraints
-The endpoint has a rate limiter such that not more than 3 calls are allowed within one second
+The endpoint has a rate limiter such that not more than 3 calls are allowed within one second.
 
 
 
