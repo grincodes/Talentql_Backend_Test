@@ -6,9 +6,11 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "prestart": "npm run build",
     "start:dev": "nodemon",
     "test:dev": "jest --watchAll",
     "start": "node dist/bin/www"

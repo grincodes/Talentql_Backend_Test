@@ -1,24 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CalculateAgeController = void 0;
-const dob_1 = require("../core/dob");
-const timestamp_1 = require("../core/timestamp");
+const date_fns_1 = require("date-fns");
+const params_1 = require("../core/dto/params");
+const ErrorExtractor_1 = require("../utils/ErrorExtractor");
 const baseController_1 = require("./baseController");
 class CalculateAgeController extends baseController_1.BaseController {
     constructor() {
         super();
     }
     async executeImpl() {
-        const timestamp = parseInt(this.req.query.dob);
-        console.log(this.req);
-        console.log("dob params", timestamp);
-        let dobOrError = timestamp_1.Timestamp.create({ timestamp });
-        if (dobOrError.isFailure) {
-            return this.clientError(dobOrError.error);
-        }
-        let age = dob_1.Dob.getCurrentAge(dobOrError.getValue());
+        const params = params_1.ParamsRequest.from(this.req.query);
+        await (0, ErrorExtractor_1.validateAndError)(this.res, params);
+        const age = (0, date_fns_1.differenceInYears)(new Date(), (0, date_fns_1.parseISO)(params.dob));
+        console.log(age);
         return this.ok(this.res, age);
     }
 }
 exports.CalculateAgeController = CalculateAgeController;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FsY3VsYXRlQWdlQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb250cm9sbGVycy9jYWxjdWxhdGVBZ2VDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLHFDQUFrQztBQUNsQyxpREFBOEM7QUFDOUMscURBQWtEO0FBRWxELE1BQWEsc0JBQXVCLFNBQVEsK0JBQWM7SUFDeEQ7UUFDRSxLQUFLLEVBQUUsQ0FBQztJQUNWLENBQUM7SUFDRCxLQUFLLENBQUMsV0FBVztRQUNmLE1BQU0sU0FBUyxHQUFHLFFBQVEsQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLEtBQUssQ0FBQyxHQUFhLENBQUMsQ0FBQztRQUN6RCxPQUFPLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztRQUV0QixPQUFPLENBQUMsR0FBRyxDQUFDLFlBQVksRUFBRSxTQUFTLENBQUMsQ0FBQztRQUVyQyxJQUFJLFVBQVUsR0FBRyxxQkFBUyxDQUFDLE1BQU0sQ0FBQyxFQUFFLFNBQVMsRUFBRSxDQUFDLENBQUM7UUFFakQsSUFBSSxVQUFVLENBQUMsU0FBUyxFQUFFO1lBQ3hCLE9BQU8sSUFBSSxDQUFDLFdBQVcsQ0FBQyxVQUFVLENBQUMsS0FBZSxDQUFDLENBQUM7U0FDckQ7UUFFRCxJQUFJLEdBQUcsR0FBRyxTQUFHLENBQUMsYUFBYSxDQUFDLFVBQVUsQ0FBQyxRQUFRLEVBQUUsQ0FBQyxDQUFDO1FBQ25ELE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQyxJQUFJLENBQUMsR0FBRyxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQ2hDLENBQUM7Q0FDRjtBQW5CRCx3REFtQkMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FsY3VsYXRlQWdlQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb250cm9sbGVycy9jYWxjdWxhdGVBZ2VDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLHVDQUF1RDtBQUV2RCwrQ0FBbUQ7QUFFbkQsNERBQTJEO0FBQzNELHFEQUFrRDtBQUVsRCxNQUFhLHNCQUF1QixTQUFRLCtCQUFjO0lBQ3hEO1FBQ0UsS0FBSyxFQUFFLENBQUM7SUFDVixDQUFDO0lBQ0QsS0FBSyxDQUFDLFdBQVc7UUFDZixNQUFNLE1BQU0sR0FBRyxzQkFBYSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLEtBQStCLENBQUMsQ0FBQztRQUM1RSxNQUFNLElBQUEsaUNBQWdCLEVBQUMsSUFBSSxDQUFDLEdBQUcsRUFBRSxNQUFNLENBQUMsQ0FBQztRQUN6QyxNQUFNLEdBQUcsR0FBRyxJQUFBLDRCQUFpQixFQUFDLElBQUksSUFBSSxFQUFFLEVBQUUsSUFBQSxtQkFBUSxFQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO1FBQ2hFLE9BQU8sQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLENBQUM7UUFFakIsT0FBTyxJQUFJLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxHQUFHLEVBQUUsR0FBRyxDQUFDLENBQUM7SUFDaEMsQ0FBQztDQUNGO0FBWkQsd0RBWUMifQ==
