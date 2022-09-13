@@ -15,15 +15,12 @@ export class Timestamp {
   }
 
   public static isValidTimeStamp(timestamp: number): boolean {
-    
     const valid = new Date(timestamp).getTime() > 0;
     return valid;
   }
 
   public static create(props: TimestampProps): Result<Timestamp> {
     if (!this.isValidTimeStamp(props.timestamp)) {
-      console.log("invalid timestamp", props.timestamp);
-
       return Result.fail<Timestamp>("Invalid TimeStamp");
     } else {
       return Result.ok<Timestamp>(
