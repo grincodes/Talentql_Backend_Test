@@ -1,5 +1,6 @@
 import { validate, ValidationError } from "class-validator";
 import { Response } from "express";
+import { BaseController } from "../controllers/baseController";
 
 export function extractAndThrowError(errors: ValidationError[]) {
   if (errors.length > 0) {
@@ -13,18 +14,27 @@ export function extractAndThrowError(errors: ValidationError[]) {
 
     return {
       fields: payload,
-      errMsg: `Please incorrect fields was passed, please check and try again`,
+      errMsg: `Please incorrect dob was passed, please check and try again`,
     };
   }
 
   return null;
 }
 
-export async function validateAndError(res: Response, data: any) {
+export async function validateAndError(data: any) {
   const errors = await validate(data);
+
+  if (
+    data.dob.toLowerCase() == "null" ||
+    data.dob.toLowerCase() == "undefined" ||
+    data.dob.toLowerCase() == "nan"
+  ) {
+    return { errMsg: "dob cannot be null or undefined" };
+  }
+
   const response = extractAndThrowError(errors);
   if (response == null) {
     return;
   }
-  res.status(400).json(response);
+  return { errMsg: response.errMsg };
 }
