@@ -1,5 +1,8 @@
-import { Dob } from "../core/dob";
-import { Timestamp } from "../core/timestamp";
+import { differenceInYears, parseISO } from "date-fns";
+
+import { ParamsRequest } from "../core/dto/params";
+
+import { validateAndError } from "../utils/ErrorExtractor";
 import { BaseController } from "./baseController";
 
 export class CalculateAgeController extends BaseController {
@@ -7,18 +10,11 @@ export class CalculateAgeController extends BaseController {
     super();
   }
   async executeImpl(): Promise<any> {
-    const timestamp = parseInt(this.req.query.dob as string);
-    console.log(this.req);
+    const params = ParamsRequest.from(this.req.query as Record<string, string>);
+    await validateAndError(this.res, params);
+    const age = differenceInYears(new Date(), parseISO(params.dob));
+    console.log(age);
 
-    console.log("dob params", timestamp);
-
-    let dobOrError = Timestamp.create({ timestamp });
-
-    if (dobOrError.isFailure) {
-      return this.clientError(dobOrError.error as string);
-    }
-
-    let age = Dob.getCurrentAge(dobOrError.getValue());
     return this.ok(this.res, age);
   }
 }

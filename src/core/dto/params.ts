@@ -1,17 +1,12 @@
-import { IsDate} from "class-validator"
-import { plainToInstance } from "class-transformer"
+import { IsISO8601 } from "class-validator";
+import { plainToInstance } from "class-transformer";
 
-export class ParamsRequest{
-    
-    @IsDate({})
-    public dob:string
+export class ParamsRequest {
+  @IsISO8601({})
+  public dob: string;
 
-    
-    public static from(obj:Record<string,string> = {} ){
-        if (!obj) obj = {};
-        return plainToInstance(ParamsRequest,obj) as ParamsRequest
-    }
-
-    
-
+  public static from(obj: Record<string, string> = {}) {
+    if (!obj) obj = {};
+    return plainToInstance(ParamsRequest, obj) as ParamsRequest;
+  }
 }

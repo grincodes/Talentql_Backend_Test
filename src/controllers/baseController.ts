@@ -20,7 +20,8 @@ export abstract class BaseController {
   }
 
   public ok<T> (res: express.Response, dto?: T) {
-    if (!!dto) {
+    
+    if (! (dto==null || undefined)) {
       return res.status(200).json(dto);
     } else {
       return res.sendStatus(200);
