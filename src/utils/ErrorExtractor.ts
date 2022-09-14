@@ -24,13 +24,13 @@ export function extractAndThrowError(errors: ValidationError[]) {
 export async function validateAndError(data: any) {
   const errors = await validate(data);
 
-  if (
-    data.dob.toLowerCase() == "null" ||
-    data.dob.toLowerCase() == "undefined" ||
-    data.dob.toLowerCase() == "nan"
-  ) {
-    return { errMsg: "dob cannot be null or undefined" };
-  }
+  // if (
+  //   data.dob.toLowerCase() == "null" ||
+  //   data.dob.toLowerCase() == "undefined" ||
+  //   data.dob.toLowerCase() == "nan"
+  // ) {
+  //   return { errMsg: "dob cannot be null or undefined" };
+  // }
 
   const response = extractAndThrowError(errors);
   if (response == null) {

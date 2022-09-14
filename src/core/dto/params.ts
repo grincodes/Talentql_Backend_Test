@@ -1,8 +1,8 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumberString } from "class-validator";
 import { plainToInstance } from "class-transformer";
 
 export class ParamsRequest {
-  @IsString()
+  @IsNumberString()
   public dob: string;
 
   public static from(obj: Record<string, string> = {}) {
