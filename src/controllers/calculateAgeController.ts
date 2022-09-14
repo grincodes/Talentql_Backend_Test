@@ -1,4 +1,5 @@
 import { differenceInYears, parseISO } from "date-fns";
+import { Dob } from "../core/dob";
 
 import { ParamsRequest } from "../core/dto/params";
 
@@ -18,6 +19,8 @@ export class CalculateAgeController extends BaseController {
     if (err) {
       console.log(err);
       return this.clientError(err.errMsg);
+    } else if (!Dob.isValidTimeStamp(Number(params.dob))) {
+      return this.clientError("invalid timestamp value");
     } else {
       const age = differenceInYears(new Date(), new Date(Number(params.dob)));
       return this.ok(this.res, age);
