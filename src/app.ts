@@ -6,7 +6,7 @@ import { calculateAgeController } from "./controllers";
 import rateLimit from "express-rate-limit";
 
 const apiLimiter = rateLimit({
-  windowMs: 1000, // 1 sec
+  windowMs: 10000, // 1 sec
   max: 3, // Limit each IP to 3 requests per `window` (here, per sec)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers

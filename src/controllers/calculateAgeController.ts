@@ -11,9 +11,12 @@ export class CalculateAgeController extends BaseController {
   }
   async executeImpl(): Promise<any> {
     const params = ParamsRequest.from(this.req.query as Record<string, string>);
+    console.log(params);
 
     const err = await validateAndError(params);
+
     if (err) {
+      console.log(err);
       return this.clientError(err.errMsg);
     } else {
       const age = differenceInYears(new Date(), new Date(Number(params.dob)));
